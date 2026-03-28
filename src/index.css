@@ -4,54 +4,35 @@
   --color-brand-light: #34d399;
   --color-brand-default: #10b981;
   --color-brand-dark: #059669;
-  --color-bg-base: #09090b; /* Very dark zinc */
-  --color-bg-surface: #18181b; /* Zinc 900 */
-  --color-bg-surface-elevated: #27272a; /* Zinc 800 */
   --font-sans: 'Inter', system-ui, sans-serif;
 }
 
+/* Base styles */
 body {
-  background-color: var(--color-bg-base);
-  color: #f4f4f5;
   font-family: var(--font-sans);
   margin: 0;
   min-height: 100vh;
-  /* Premium subtle background glow */
+}
+
+/* Light mode base */
+body:not(.dark) {
+  background-color: #fafafa;
+  background-image: radial-gradient(circle at 50% 0%, rgba(16, 185, 129, 0.05) 0%, transparent 60%);
+  background-attachment: fixed;
+}
+
+/* Dark mode base */
+.dark body,
+body.dark {
+  background-color: #09090b;
+  color: #f4f4f5;
   background-image: radial-gradient(circle at 50% 0%, rgba(16, 185, 129, 0.08) 0%, transparent 60%);
   background-attachment: fixed;
 }
 
-/* Polished glassmorphism */
-.glass-panel {
-  background: rgba(24, 24, 27, 0.6);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
-  border-radius: 1.5rem;
-}
-
-/* Dynamic Gradient text */
-.text-gradient {
-  background: linear-gradient(135deg, var(--color-brand-light) 0%, var(--color-brand-default) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* Shimmer internal class */
-@keyframes shimmer {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
-}
-
-/* Slide in animation */
-@keyframes slideUpFade {
-  0% { opacity: 0; transform: translateY(20px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-.animate-in {
-  animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) ease-out forwards;
+/* Dark mode class applied to html */
+.dark {
+  color-scheme: dark;
 }
 
 /* Custom scrollbar */
@@ -59,13 +40,44 @@ body {
   width: 8px;
   height: 8px;
 }
+
 ::-webkit-scrollbar-track {
-  background: var(--color-bg-base);
+  background: transparent;
 }
+
 ::-webkit-scrollbar-thumb {
-  background: var(--color-bg-surface-elevated);
+  background: #3f3f46;
   border-radius: 4px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-brand-dark);
+  background: #52525b;
+}
+
+/* Video/Audio element defaults */
+video, audio {
+  outline: none;
+}
+
+/* Button focus states */
+button:focus-visible {
+  outline: 2px solid #10b981;
+  outline-offset: 2px;
+}
+
+/* Input focus states */
+input:focus, select:focus {
+  outline: none;
+}
+
+/* Disable text selection on UI elements */
+button, label, nav {
+  user-select: none;
+}
+
+/* Smooth transitions for theme changes */
+* {
+  transition-property: background-color, border-color, color;
+  transition-duration: 150ms;
+  transition-timing-function: ease-out;
 }
